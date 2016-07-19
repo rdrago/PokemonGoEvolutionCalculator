@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -24,15 +25,20 @@ namespace PokemonGoCalculator
     {
         readonly private TimeSpan TimeToEvolve = TimeSpan.FromSeconds(30);
 
+        public ObservableCollection<Pokemon> Pokemons
+        {
+            get;
+            set;
+        }
+
         public MainPage()
         {
             this.InitializeComponent();
-            PokemonList.ItemsSource = new object[]
-            {
-                new Pokemon { Name = "Pidgey", CandiesToEvolve = 12},
-                new Pokemon { Name = "Weedle", CandiesToEvolve = 12 },
-                new Pokemon { Name = "Caterpie", CandiesToEvolve = 12 }
-            };
+            Pokemons = new ObservableCollection<Pokemon>();
+
+            Pokemons.Add(new Pokemon { Name = "Pidgey", CandiesToEvolve = 12 });
+            Pokemons.Add(new Pokemon { Name = "Weedle", CandiesToEvolve = 12 });
+            Pokemons.Add(new Pokemon { Name = "Caterpie", CandiesToEvolve = 12 });
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -110,6 +116,11 @@ namespace PokemonGoCalculator
                 TransferCount = transferCount,
                 TimeTaken = timeTaken
             };
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Pokemons.Add(new Pokemon());
         }
     }
 }
